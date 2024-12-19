@@ -1,0 +1,119 @@
+{
+    "italian": [
+        {
+            "dish": "Spaghetti Carbonara",
+            "description": "Creamy pasta with eggs, cheese, pancetta, and pepper.",
+            "img": "https://cdn.usegalileo.ai/sdxl10/49b9109c-2634-4752-913f-d1709a4a5fcd.png"
+        },
+        {
+            "dish": "Campbell Creamy Mushroom Rice",
+            "description": "Rice combined with creamy mushroom soup.",
+            "img": "./images/italian/mushroomrice.jpeg"
+        },
+        {
+            "dish": "Spaghetti Bolognese",
+            "description": "Pasta with a rich, meaty tomato sauce.",
+            "img": "./images/italian/bolognese.jpeg"
+        },
+        {
+            "dish": "Pesto Spaghetti",
+            "description": "Spaghetti with basil, garlic, pine nuts, and Parmesan.",
+            "img": "./images/italian/pesto.jpeg"
+        },
+        {
+            "dish": "Chicken Alfredo",
+            "description": "Pasta with chicken and creamy Alfredo sauce.",
+            "img": "./images/italian/alfredo.jpeg"
+        },
+        {
+            "dish": "Wraps",
+            "description": "Tortillas filled with various ingredients.",
+            "img": "./images/italian/ChickenWrap.webp"
+        }
+    ],
+    "chinese": [
+        {
+            "dish": "Kung Pao Chicken",
+            "description": "Spicy stir-fry with chicken, peanuts, and chili peppers.",
+            "img": "./images/chinese/Kung-Pao-Chicken.jpeg"
+        },
+        {
+            "dish": "Egg Fried Rice",
+            "description": "Rice with eggs and meats.",
+            "img": "./images/chinese/eggfriedrice.jpeg"
+        },
+        {
+            "dish": "Sambal Sweet Potato Leaves",
+            "description": "Sweet potato leaves with spicy sambal sauce.",
+            "img": "./images/chinese/sambalpotato.jpeg"
+        },
+        {
+            "dish": "麻婆豆腐",
+            "description": "Spicy tofu with minced meat.",
+            "img": "./images/chinese/mapo tofo.webp"
+        },
+        {
+            "dish": "麻辣香锅",
+            "description": "Spicy stir-fry with various ingredients.",
+            "img": "./images/chinese/mala.jpeg"
+        },
+        {
+            "dish": "Potato w Hotdogs",
+            "description": "Stir-fry with potatos and hotdogs with tomato sauce.",
+            "img": "./images/chinese/hotdogpotato.jpeg"
+        }
+
+    ],
+    "thai": [
+        {
+            "dish": "Thai Basil Rice",
+            "description": "Stir-fried meat with Thai basil and rice.",
+            "img": "./images/thai/thaibasil.jpeg"
+        },
+        {
+            "dish": "Pineapple Fried Rice",
+            "description": "Fried rice with pineapple and vegetables.",
+            "img": "./images/thai/pineapplerice.jpeg"
+        },
+        {
+            "dish": "Pad Thai",
+            "description": "Sweet and tangy Thai stir-fried noodle dish.",
+            "img": "./images/thai/pad-thai.jpeg"
+        }
+    ],
+    "soup": [
+        {
+            "dish": "Campbell Mushroom Soup",
+            "description": "Creamy mushroom soup.",
+            "img": "./images/soup/campbell mushroom.webp"
+        },
+        {
+            "dish": "Campbell Corn Soup",
+            "description": "Sweet corn soup.",
+            "img": "./images/soup/campbell corn.jpeg"
+        },
+        {
+            "dish": "Campbell Creamy Chicken Soup",
+            "description": "Creamy chicken soup",
+            "img": "./images/soup/campbell cream chicken.webp"
+        },
+        {
+            "dish": "Watercress Soup",
+            "description": "Light soup with watercress.",
+            "img": "./images/soup/watercress.webp"
+        },
+        {
+            "dish": "Yong Tau Foo Soup",
+            "description": "Clear soup with stuffed tofu and vegetables.",
+            "img": "./images/soup/yong tau foo.jpeg"
+        }
+    ],
+    "secret": [
+        {
+            "dish": "3 Course Meal",
+            "description": "Includes an appetizer, a main course, and a dessert",
+            "img": "./images/3course.jpeg"
+        }
+    ]
+    
+}

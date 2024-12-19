@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script type="module">
+        import { db } from './firebase.js';
+        import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
+
+        async function generatePDF() {
+            const name = "Clara Lim";
+            const email = "claralimjx@gmail.com";
+
+            try {
+                const userSelectionRef = doc(db, 'selectedDishes', 'userSelection');
+                const userSelectionSnap = await getDoc(userSelectionRef);
+
+                const dateRef = doc(db, 'dates', 'uniqueDocumentId');
+                const dateSnap = await getDoc(dateRef);
+
+                if (userSelectionSnap.exists() && dateSnap.exists()) {
+                    const dishesData = userSelectionSnap.data().dishes || [];
+                    const dishNames = dishesData.map(dishItem => `• ${dishItem.dish}`).join('\n                ');
+
+                    const dateData = dateSnap.data();
+                    const eventDate = dateData.date || "Date not available";
+                    const eventTime = dateData.time || "Time not available";
+
+                    const invitation = `
+                        Dear ${name},
+
+                I would like to invite you to join me for a dinner/lunch.
+
+                Date: ${eventDate}
+                Time: ${eventTime}
+
+                I will take care of the dishes:
+                ${dishNames}
+                
+                We'll dine with delicious food and enchanting conversation.
+                Your presence will make this evening complete.
+
+                I can't wait to share this special day with you.
+
+                With all my love,
+                Nickus
+                    `;
+
+                    const { jsPDF } = window.jspdf;
+                    const pdfDoc = new jsPDF();
+
+                    const imgData = './images/1-2b47b887.jpeg';
+                    pdfDoc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
+
+                    const pageWidth = 180;
+                    const marginX = 15;
+                    const marginY = 20;
+                    const lineHeight = 8;
+
+                    const textLines = pdfDoc.splitTextToSize(invitation.trim(), pageWidth);
+
+                    // Loop through the lines and left-align text
+                    textLines.forEach((line, index) => {
+                        pdfDoc.text(line, marginX, marginY + (index * lineHeight));
+                    });
+
+                    // Save PDF to trigger download
+                    pdfDoc.save('invitation.pdf');
+
+                    // Generate PDF as Blob
+                    const pdfBlob = pdfDoc.output('blob');
+
+                    // Create a URL for the Blob
+                    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+                    // Open the PDF in a new tab
+                    window.open(pdfUrl);
+
+                } else {
+                    console.log("No such document found!");
+                }
+            } catch (error) {
+                console.error("Error fetching data: ", error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', generatePDF);
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Generating Invitation...</h1>
+    </div>
+</body>
+
+</html>
