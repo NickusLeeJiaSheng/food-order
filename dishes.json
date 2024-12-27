@@ -108,6 +108,13 @@
             "img": "./images/soup/yong tau foo.jpeg"
         }
     ],
+    "western": [
+        {
+            "dish": "Chicken Chop",
+            "description": "Grilled chicken chop served with sauce",
+            "img": "./images/3course.jpeg"
+        }
+    ],
     "secret": [
         {
             "dish": "3 Course Meal",
