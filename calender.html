@@ -4,103 +4,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
-        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Epilogue%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Calendar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <style>
+        body {
+            font-family: 'Epilogue', 'Noto Sans', sans-serif;
+            background-color: #1b130d;
+        }
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        .calendar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .calendar {
+            width: 90%;
+            max-width: 500px;
+            background-color: #fff;
+            box-shadow: 0 5px 50px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .calendar__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f3f3f3;
+            background-size: cover;
+            background-position: center;
+            height: 150px;
+        }
+
+        .calendar__header button {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .calendar__body {
+            padding: 10px;
+        }
+
+        .calendar__weekdays,
+        .calendar__dates {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .calendar__weekdays div,
+        .calendar__dates div {
+            padding: 10px;
+        }
+
+        .calendar__dates div {
+            border-bottom: 1px solid #eaeef3;
+            cursor: pointer;
+        }
+
+        .calendar__dates div:hover {
+            background-color: #f1f1f1;
+        }
+
+        .calendar__number.selected {
+            background-color: #009688;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        input[type="time"] {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 10px;
+        }
+
+        .next-button {
+            background-color: orange;
+            padding: 15px 30px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .calendar__header {
+                height: 120px;
+            }
+
+            .calendar__weekdays div,
+            .calendar__dates div {
+                font-size: 12px;
+                padding: 5px;
+            }
+        }
+    </style>
 </head>
-
-<style>
-    .calendar-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .calendar {
-        width: 500px;
-        background-color: #fff;
-        box-shadow: 0 5px 50px rgba(0, 0, 0, 0.5);
-        border-radius: 8px;
-        overflow: hidden;
-    }
-
-    .calendar__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        padding: 10px;
-        background-color: #f3f3f3;
-        height: 200px;
-        background-image: url("https://cdn.usegalileo.ai/sdxl10/49b9109c-2634-4752-913f-d1709a4a5fcd.png"); /* Corrected property */
-        background-size: cover;
-        background-position: center;
-
-    }
-
-    .calendar__header button {
-        background: none;
-        border: none;
-        font-size: 1.5em;
-        cursor: pointer;
-    }
-
-    .calendar__body {
-        padding: 20px;
-    }
-
-    .calendar__weekdays,
-    .calendar__dates {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        text-align: center;
-    }
-
-    .calendar__weekdays div,
-    .calendar__dates div {
-        padding: 10px;
-    }
-
-    .calendar__dates div {
-        border-bottom: 1px solid #eaeef3;
-        cursor: pointer;
-    }
-
-    .calendar__dates div:hover {
-        background-color: #f1f1f1;
-    }
-
-    .calendar__number.selected {
-        background-color: #009688;
-        color: #fff;
-        font-weight: 700;
-    }
-
-    .row input[type="time"] {
-        width: 500px;
-        padding: 10px;
-        font-size: 1em;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-</style>
 
 <body>
     <div class="relative flex size-full min-h-screen flex-col bg-[#fcfaf8] group/design-root overflow-x-hidden dark:bg-slate-800"
         style='font-family: Epilogue, "Noto Sans", sans-serif;'>
         <div class="layout-container flex h-full grow flex-col">
+            <div id="alert">
+            </div>
             <header
                 class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3ece7] px-10 py-3">
                 <div class="flex items-center gap-4 text-[#1b130d]">
@@ -118,7 +141,7 @@
                         Nickus' Anyhow</h2>
                 </div>
                 <div class="flex flex-1 justify-end gap-8">
-                    <a href="Home.html" class="mt-auto mb-auto dark:text-white">Home</a>
+                    <a href="Home.html" class="mt-auto mb-auto">Home</a>
                     <a href="about.html" class="mt-auto mb-auto dark:text-white">About</a>
                     <a href="Order.html">
                         <button
@@ -138,43 +161,36 @@
                     </div>
                 </div>
             </header>
-            <div class="px-40 flex flex-1 justify-center py-5" id="app">
-                <div class="calendar-container position-relative">
-                    <div class="calendar">
-                        <div class="calendar__header">
-                            <button id="prev-month">‹</button>
-                            <div id="month-year" class="rounded" style="background-color: #f3f3f3;"></div>
-                            <button id="next-month">›</button>
-                        </div>
-                        <div class="calendar__body">
-                            <div class="calendar__weekdays">
-                                <div>Sun</div>
-                                <div>Mon</div>
-                                <div>Tue</div>
-                                <div>Wed</div>
-                                <div>Thu</div>
-                                <div>Fri</div>
-                                <div>Sat</div>
-                            </div>
-                            <div class="calendar__dates"></div>
-                        </div>
+            <div id="app" class="calendar-container">
+                <div class="calendar">
+                    <div class="calendar__header">
+                        <button id="prev-month">‹</button>
+                        <div id="month-year"></div>
+                        <button id="next-month">›</button>
                     </div>
-                    <div class="row position-relative">
-                        <input type="time" id="time">
-                        <div class="row position-absolute" style="left:105%; top: 40%; width: 100%;">
-                            <p class="text-danger" id="alert"></p>
+                    <div class="calendar__body">
+                        <div class="calendar__weekdays">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
                         </div>
+                        <div class="calendar__dates"></div>
                     </div>
-                    <a id="next">
-                        <div class="row" style="position: absolute; right: 10%; bottom: 10%;">
-                            <button class="rounded" style="background-color: orange; padding: 15px 30px;" onclick="recordDate()">Next</button>
-                        </div>
-                    </a>
                 </div>
+                <input type="time" id="time">
+                <button class="next-button" onclick="recordDate()">Next</button>
             </div>
-        </div>
-    </div>
-    <script type="module" src="calender.js"></script>
+            <script type="module" src="calender.js"></script>
+
+            <footer class="border-top border-secondary py-3">
+                <div class="container text-center">
+                    <p class="mb-0">&copy; 2024 Gordan Nickus Cuisines. No Complains Accepted.</p>
+                </div>
+            </footer>
 </body>
 
 </html>
