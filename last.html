@@ -32,7 +32,7 @@
 
         async function generatePDF() {
             const name = "Clara Lim";
-            const email = "claralimjx@gmail.com";
+            const email = "nickuscoc@gmail.com";
 
             try {
                 const userSelectionRef = doc(db, 'selectedDishes', 'userSelection');
@@ -99,6 +99,9 @@
                     // Open the PDF in a new tab
                     window.open(pdfUrl);
 
+                    // Open email client
+                    openEmail(email, pdfUrl);
+
                 } else {
                     console.log("No such document found!");
                 }
@@ -106,6 +109,15 @@
                 console.error("Error fetching data: ", error);
             }
         }
+
+        function openEmail(email) {
+            const subject = "Invitation";
+            const pdfUrl = "https://github.com/NickusLeeJiaSheng/food-order.git"; // Replace with your actual URL
+            const body = `Dear Babe,\n\nPlease find the invitation attached.\n\nBest regards,\nClara\n\nPDF Link: ${pdfUrl}`;
+            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(mailtoLink, '_blank');
+        }
+
 
         document.addEventListener('DOMContentLoaded', generatePDF);
     </script>
