@@ -99,8 +99,8 @@
                     // Open the PDF in a new tab
                     window.open(pdfUrl);
 
-                    // Open email client
-                    openEmail(email, pdfUrl);
+                    // Open email client with dish names included
+                    openEmail(email, pdfUrl, dishNames);
 
                 } else {
                     console.log("No such document found!");
@@ -110,14 +110,12 @@
             }
         }
 
-        function openEmail(email) {
+        function openEmail(email, pdfUrl, dishNames) {
             const subject = "Invitation";
-            const pdfUrl = "https://github.com/NickusLeeJiaSheng/food-order.git"; // Replace with your actual URL
-            const body = `Dear Babe,\n\nPlease find the invitation attached.\n\nBest regards,\nClara\n\nPDF Link: ${pdfUrl}`;
+            const body = `Dear Babe,\n\nPlease find the invitation attached.\n\nBest regards,\nClara\n\nPDF Link: ${pdfUrl}\n\nDishes:\n${dishNames}`;
             const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             window.open(mailtoLink, '_blank');
         }
-
 
         document.addEventListener('DOMContentLoaded', generatePDF);
     </script>
@@ -130,3 +128,4 @@
 </body>
 
 </html>
+
