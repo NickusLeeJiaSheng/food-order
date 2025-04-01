@@ -10,7 +10,7 @@
 endobj
 4 0 obj
 <<
-/Length 739
+/Length 1056
 >>
 stream
 0.5670000000000001 w
@@ -25,12 +25,19 @@ T* (        Dear Clara Lim,) Tj
 T* () Tj
 T* (        I would like to invite you to join me for a dinner/lunch.) Tj
 T* () Tj
-T* (        Date: Date not available) Tj
-T* (        Time: Time not available) Tj
+T* (        Date: 2 April 2025) Tj
+T* (        Time: 02:27) Tj
 T* () Tj
 T* (        I will take care of the dishes:) Tj
-T* (        • Dish 1) Tj
-T* (        • Dish 2) Tj
+T* (        • Watercress Soup) Tj
+T* (                • Campbell Mushroom Soup) Tj
+T* (                • Campbell Corn Soup) Tj
+T* (                • Chicken Alfredo) Tj
+T* (                • Campbell Creamy Mushroom Rice) Tj
+T* (                • Pesto Spaghetti) Tj
+T* (                • Wraps) Tj
+T* (                • 3 Course Meal) Tj
+T* (                • Spaghetti Carbonara) Tj
 T* (        ) Tj
 T* (        We'll dine with delicious food and enchanting conversation.) Tj
 T* (        Your presence will make this evening complete.) Tj
@@ -213,7 +220,7 @@ endobj
 19 0 obj
 <<
 /Producer (jsPDF 3.0.1)
-/CreationDate (D:20250402023933+08'00')
+/CreationDate (D:20250402025319+08'00')
 >>
 endobj
 20 0 obj
@@ -227,33 +234,33 @@ endobj
 xref
 0 21
 0000000000 65535 f 
-0000000942 00000 n 
-0000002759 00000 n 
+0000001260 00000 n 
+0000003077 00000 n 
 0000000015 00000 n 
 0000000152 00000 n 
-0000000999 00000 n 
-0000001124 00000 n 
-0000001254 00000 n 
-0000001387 00000 n 
-0000001524 00000 n 
-0000001647 00000 n 
-0000001776 00000 n 
-0000001908 00000 n 
-0000002044 00000 n 
-0000002172 00000 n 
-0000002299 00000 n 
-0000002428 00000 n 
-0000002561 00000 n 
-0000002663 00000 n 
-0000003007 00000 n 
-0000003093 00000 n 
+0000001317 00000 n 
+0000001442 00000 n 
+0000001572 00000 n 
+0000001705 00000 n 
+0000001842 00000 n 
+0000001965 00000 n 
+0000002094 00000 n 
+0000002226 00000 n 
+0000002362 00000 n 
+0000002490 00000 n 
+0000002617 00000 n 
+0000002746 00000 n 
+0000002879 00000 n 
+0000002981 00000 n 
+0000003325 00000 n 
+0000003411 00000 n 
 trailer
 <<
 /Size 21
 /Root 20 0 R
 /Info 19 0 R
-/ID [ <422066638BA0BA5218B6CDD5F604FD1D> <422066638BA0BA5218B6CDD5F604FD1D> ]
+/ID [ <91AEC68A74B407222EF54000F57C61C2> <91AEC68A74B407222EF54000F57C61C2> ]
 >>
 startxref
-3197
+3515
 %%EOF
