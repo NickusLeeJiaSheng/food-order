@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
     <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
         href="https://fonts.googleapis.com/css2?display=swap&amp;family=Epilogue%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
@@ -73,13 +74,13 @@
                 </div>
             </header>
             <div id="alert" class=""></div>
-            <div class="px-40 flex flex-1 justify-center py-5" id="app">
+            <div class="px-4 sm:px-10 lg:px-40 flex flex-1 justify-center py-5" id="app">
                 <div class="container bg-light rounded position-relative">
                     <div class="row d-flex flex-col align-items-center">
                         <div class="card col-6 mt-3 border border-dark" v-for="dish in selected">
                             <div class="row">
                                 <div class="col-3 p-0">
-                                    <img :src="dish.img">
+                                    <img :src="dish.img" class="w-full h-auto object-cover rounded" />
                                 </div>
                                 <div class="col">
                                     <div class="card-body">
@@ -99,7 +100,7 @@
                         </div>
                     </div>
                     <a href="calender.html">
-                        <div class="row" style="position: absolute; bottom: 10%; right:5%">
+                        <div class="row absolute bottom-10 right-5 md:static md:flex md:justify-end">
                             <button class="rounded" style="background-color: orange; padding: 15px;">Place Order</button>
                         </div>
                     </a>
