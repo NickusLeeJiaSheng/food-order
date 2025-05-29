@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
     <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
         href="https://fonts.googleapis.com/css2?display=swap&amp;family=Epilogue%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
@@ -16,9 +17,9 @@
     <div class="relative flex size-full min-h-screen flex-col bg-[#fcfaf8] group/design-root overflow-x-hidden dark:bg-slate-800"
         style='font-family: Epilogue, "Noto Sans", sans-serif;'>
         <div class="layout-container flex h-full grow flex-col">
-            <header
-                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3ece7] px-10 py-3">
-                <div class="flex items-center gap-4 text-[#1b130d]">
+            <!-- Mobile-optimized header -->
+            <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3ece7] px-4 py-3 md:px-6 lg:px-10">
+                <div class="flex items-center gap-2 md:gap-4 text-[#1b130d]">
                     <div class="size-4">
                         <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -29,184 +30,205 @@
                                 fill="currentColor"></path>
                         </svg>
                     </div>
-                    <h2 class="text-[#1b130d] text-lg font-bold leading-tight tracking-[-0.015em] dark:text-white">Nickus' Anyhow</h2>
+                    <h2 class="text-[#1b130d] text-base md:text-lg font-bold leading-tight tracking-[-0.015em] dark:text-white">Nickus' Anyhow</h2>
                 </div>
-                <div class="flex flex-1 justify-end gap-8">
-                    <a href="about.html" class="mt-auto mb-auto dark:text-white">About</a>
-                    <label class="flex flex-col min-w-40 !h-10 max-w-64">
+                
+                <!-- Mobile navigation - hamburger menu for small screens -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <button onclick="toggleMobileSearch()" class="p-2 rounded-lg bg-[#f3ece7] text-[#9a6e4c]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+                        </svg>
+                    </button>
+                    <a href="Order.html">
+                        <button class="p-2 rounded-lg bg-[#f3ece7] text-[#1b130d]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                                <path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Zm4-74.57A8,8,0,0,1,188.1,136H69.22L57.59,72H206.41Z"></path>
+                            </svg>
+                        </button>
+                    </a>
+                    <button onclick="toggleMobileMenu()" class="p-2 rounded-lg bg-[#f3ece7] text-[#1b130d]">
+                        <svg id="hamburger" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
+                        </svg>
+                        <svg id="close" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+                        </svg>
+                    </button>
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" style='background-image: url("./images/clarapfp.jpeg");'></div>
+                </div>
+                
+                <!-- Desktop navigation -->
+                <div class="hidden md:flex flex-1 justify-end gap-4 lg:gap-8 items-center">
+                    <a href="about.html" class="text-sm lg:text-base dark:text-white hover:text-[#ee7f2b] transition-colors">About</a>
+                    <label class="flex flex-col min-w-32 lg:min-w-40 !h-10 max-w-64">
                         <div class="flex w-full flex-1 items-stretch rounded-xl h-full">
-                            <div class="text-[#9a6e4c] flex border-none bg-[#f3ece7] items-center justify-center pl-4 rounded-l-xl border-r-0"
-                                data-icon="MagnifyingGlass" data-size="24px" data-weight="regular">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
-                                    viewBox="0 0 256 256">
-                                    <path
-                                        d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
-                                    </path>
+                            <div class="text-[#9a6e4c] flex border-none bg-[#f3ece7] items-center justify-center pl-4 rounded-l-xl border-r-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                                    <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
                                 </svg>
                             </div>
-                            <input placeholder="Search" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#1b130d] focus:outline-0 focus:ring-0 border-none bg-[#f3ece7] focus:border-none h-full placeholder:text-[#9a6e4c] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" value="" />
+                            <input placeholder="Search" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#1b130d] focus:outline-0 focus:ring-0 border-none bg-[#f3ece7] focus:border-none h-full placeholder:text-[#9a6e4c] px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" />
                         </div>
                     </label>
                     <a href="Order.html">
-                        <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#f3ece7] text-[#1b130d] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-                            <div class="text-[#1b130d]" data-icon="ShoppingCart" data-size="20px" data-weight="regular">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
-                                    viewBox="0 0 256 256">
-                                    <path
-                                        d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Zm4-74.57A8,8,0,0,1,188.1,136H69.22L57.59,72H206.41Z">
-                                    </path>
-                                </svg>
-                            </div>
+                        <button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#f3ece7] text-[#1b130d] gap-2 text-sm font-bold leading-normal tracking-[0.015em] px-3 hover:bg-[#e7dacf] transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                                <path d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Zm4-74.57A8,8,0,0,1,188.1,136H69.22L57.59,72H206.41Z"></path>
+                            </svg>
+                            <span class="hidden lg:inline">Cart</span>
                         </button>
                     </a>
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-11"
-                        style='background-image: url("./images/clarapfp.jpeg");'>
-                    </div>
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 lg:size-11" style='background-image: url("./images/clarapfp.jpeg");'></div>
                 </div>
             </header>
-            <div class="px-40 flex flex-1 justify-center py-5">
+
+            <!-- Mobile search bar (hidden by default) -->
+            <div id="mobile-search" class="hidden md:hidden px-4 py-3 bg-[#f8f6f4] border-b border-[#f3ece7]">
+                <div class="flex w-full items-stretch rounded-xl h-12">
+                    <div class="text-[#9a6e4c] flex border border-[#e7dacf] bg-[#fcfaf8] items-center justify-center pl-4 rounded-l-xl border-r-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                            <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+                        </svg>
+                    </div>
+                    <input placeholder="Search by cuisine" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#1b130d] focus:outline-0 focus:ring-0 border border-[#e7dacf] bg-[#fcfaf8] focus:border-[#e7dacf] h-full placeholder:text-[#9a6e4c] px-4 rounded-r-none border-r-0 pr-2 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" />
+                    <div class="flex items-center justify-center rounded-r-xl border-l-0 border border-[#e7dacf] bg-[#fcfaf8] pr-2">
+                        <button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#ee7f2b] text-[#1b130d] text-sm font-bold leading-normal tracking-[0.015em]">
+                            <span class="truncate">Search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile menu (hidden by default) -->
+            <div id="mobile-menu" class="hidden md:hidden px-4 py-3 bg-[#f8f6f4] border-b border-[#f3ece7]">
+                <div class="flex flex-col gap-3">
+                    <a href="about.html" class="text-[#1b130d] dark:text-black hover:text-[#ee7f2b] transition-colors py-2">About</a>
+                    <a href="Order.html" class="text-[#1b130d] dark:text-black hover:text-[#ee7f2b] transition-colors py-2">Orders</a>
+                </div>
+            </div>
+
+            <!-- Main content with better mobile spacing -->
+            <div class="px-4 sm:px-6 md:px-12 lg:px-20 xl:px-40 flex flex-1 justify-center py-3 md:py-5">
                 <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+                    <!-- Hero section with mobile optimization -->
                     <div class="@container">
-                        <div class="@[480px]:p-4">
-                            <div class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4"
+                        <div class="p-2 sm:p-4">
+                            <div class="flex min-h-[320px] sm:min-h-[400px] md:min-h-[480px] flex-col gap-4 sm:gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center p-4 sm:p-6"
                                 style='background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%), url("https://cdn.usegalileo.ai/sdxl10/e629a214-59d7-4b9c-8bf9-8bd9cb2f6108.png");'>
-                                <h1
-                                    class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] text-center">
+                                <h1 class="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black leading-tight tracking-[-0.033em] text-center px-2">
                                     Please support by ordering something Maam
                                 </h1>
-                                <label class="flex flex-col min-w-40 h-14 w-full max-w-[480px] @[480px]:h-16">
-                                    <div class="flex w-full flex-1 items-stretch rounded-xl h-full">
-                                        <div class="text-[#9a6e4c] flex border border-[#e7dacf] bg-[#fcfaf8] items-center justify-center pl-[15px] rounded-l-xl border-r-0"
-                                            data-icon="MagnifyingGlass" data-size="20px" data-weight="regular">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
-                                                fill="currentColor" viewBox="0 0 256 256">
-                                                <path
-                                                    d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
-                                                </path>
+                                <div class="w-full max-w-[480px] px-2">
+                                    <div class="flex w-full items-stretch rounded-xl h-12 sm:h-14 md:h-16">
+                                        <div class="text-[#9a6e4c] flex border border-[#e7dacf] bg-[#fcfaf8] items-center justify-center pl-3 sm:pl-4 rounded-l-xl border-r-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                                                <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
                                             </svg>
                                         </div>
-                                        <input placeholder="Search by cuisine"
-                                            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#1b130d] focus:outline-0 focus:ring-0 border border-[#e7dacf] bg-[#fcfaf8] focus:border-[#e7dacf] h-full placeholder:text-[#9a6e4c] px-[15px] rounded-r-none border-r-0 pr-2 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal"
-                                            value="" />
-                                        <div
-                                            class="flex items-center justify-center rounded-r-xl border-l-0 border border-[#e7dacf] bg-[#fcfaf8] pr-[7px]">
-                                            <button
-                                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#ee7f2b] text-[#1b130d] text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]">
+                                        <input placeholder="Search by cuisine" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#1b130d] focus:outline-0 focus:ring-0 border border-[#e7dacf] bg-[#fcfaf8] focus:border-[#e7dacf] h-full placeholder:text-[#9a6e4c] px-3 sm:px-4 rounded-r-none border-r-0 pr-2 rounded-l-none border-l-0 pl-2 text-sm sm:text-base font-normal leading-normal" />
+                                        <div class="flex items-center justify-center rounded-r-xl border-l-0 border border-[#e7dacf] bg-[#fcfaf8] pr-2">
+                                            <button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 sm:h-10 md:h-12 px-3 sm:px-4 md:px-5 bg-[#ee7f2b] text-[#1b130d] text-sm sm:text-base font-bold leading-normal tracking-[0.015em]">
                                                 <span class="truncate">Search</span>
                                             </button>
                                         </div>
                                     </div>
-                                </label>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Popular Cuisines with mobile-optimized grid -->
                     <div class="flex flex-col items-center">
-                        <h2 class="text-[#1b130d] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 dark:text-white">
+                        <h2 class="text-[#1b130d] text-lg sm:text-xl md:text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 dark:text-white text-center">
                             Popular Cuisines
                         </h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-4">
-                            <a href="Italian.html" class="flex flex-col gap-3 pb-3 items-center">
-                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
-                                    style='background-image: url("https://cdn.usegalileo.ai/sdxl10/a35fc0ff-3ba0-4235-9bcd-73e707956f20.png"); height: 125px;'>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3 p-2 sm:p-4 w-full">
+                            <a href="Italian.html" class="flex flex-col gap-2 sm:gap-3 pb-3 items-center">
+                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl h-20 sm:h-24 md:h-32"
+                                    style='background-image: url("https://cdn.usegalileo.ai/sdxl10/a35fc0ff-3ba0-4235-9bcd-73e707956f20.png");'>
                                 </div>
-                                <p class="text-[#1b130d] text-base font-medium leading-normal dark:text-white">Italian</p>
+                                <p class="text-[#1b130d] text-sm sm:text-base font-medium leading-normal dark:text-white text-center">Italian</p>
                             </a>
-                            <a href="Chinese.html" class="flex flex-col gap-3 pb-3 items-center">
-                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                            <a href="Chinese.html" class="flex flex-col gap-2 sm:gap-3 pb-3 items-center">
+                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl h-20 sm:h-24 md:h-32"
                                     style='background-image: url("./images/hotpot.jpeg");'>
                                 </div>
-                                <p class="text-[#1b130d] text-base font-medium leading-normal dark:text-white">Chinese</p>
+                                <p class="text-[#1b130d] text-sm sm:text-base font-medium leading-normal dark:text-white text-center">Chinese</p>
                             </a>
-                            <a href="Thai.html" class="flex flex-col gap-3 pb-3 items-center">
-                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                            <a href="Thai.html" class="flex flex-col gap-2 sm:gap-3 pb-3 items-center">
+                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl h-20 sm:h-24 md:h-32"
                                     style='background-image: url("./images/thai-tom-yum-soup-banner.jpg");'>
                                 </div>
-                                <p class="text-[#1b130d] text-base font-medium leading-normal dark:text-white">Thai</p>
+                                <p class="text-[#1b130d] text-sm sm:text-base font-medium leading-normal dark:text-white text-center">Thai</p>
                             </a>
-                            <a href="western.html" class="flex flex-col gap-3 pb-3 items-center">
-                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                            <a href="western.html" class="flex flex-col gap-2 sm:gap-3 pb-3 items-center">
+                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl h-20 sm:h-24 md:h-32"
                                     style='background-image: url("./images/western.jpeg");'>
                                 </div>
-                                <p class="text-[#1b130d] text-base font-medium leading-normal dark:text-white">Western</p>
+                                <p class="text-[#1b130d] text-sm sm:text-base font-medium leading-normal dark:text-white text-center">Western</p>
                             </a>
-                            <a href="Soup.html" class="flex flex-col gap-3 pb-3 items-center">
-                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                            <a href="Soup.html" class="flex flex-col gap-2 sm:gap-3 pb-3 items-center">
+                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl h-20 sm:h-24 md:h-32"
                                     style='background-image: url("./images/13096-Cream-of-Mushroom-Soup-ddmfs-4x3-293-b505e37374d74e81807e8a93bcdd7bab.jpg");'>
                                 </div>
-                                <p class="text-[#1b130d] text-base font-medium leading-normal dark:text-white">Soup</p>
+                                <p class="text-[#1b130d] text-sm sm:text-base font-medium leading-normal dark:text-white text-center">Soup</p>
                             </a>
-                            <a href="secret.html" class="flex flex-col gap-3 pb-3 items-center">
-                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                            <a href="secret.html" class="flex flex-col gap-2 sm:gap-3 pb-3 items-center">
+                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl h-20 sm:h-24 md:h-32"
                                     style='background-image: url("./images/secret\ menu.jpeg");'>
                                 </div>
-                                <p class="text-[#1b130d] text-base font-medium leading-normal dark:text-white">Special Menu</p>
+                                <p class="text-[#1b130d] text-sm sm:text-base font-medium leading-normal dark:text-white text-center">Special Menu</p>
                             </a>
                         </div>
                     
-                        <h2 class="text-[#1b130d] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 dark:text-white">
+                        <!-- Trending Dishes with mobile-optimized grid -->
+                        <h2 class="text-[#1b130d] text-lg sm:text-xl md:text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 dark:text-white text-center">
                             Trending Dishes
                         </h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 p-2 sm:p-4 w-full">
                             <div class="flex flex-col gap-3 pb-3">
-                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl h-40 sm:h-48"
                                     style='background-image: url("https://cdn.usegalileo.ai/sdxl10/49b9109c-2634-4752-913f-d1709a4a5fcd.png");'>
                                 </div>
-                                <div>
-                                    <p class="text-[#1b130d] text-base font-medium leading-normal dark:text-white">Spaghetti Carbonara</p>
-                                    <p class="text-[#9a6e4c] text-sm font-normal leading-normal">Creamy pasta with guanciale and eggs</p>
-                                </div>
-                            </div>
-                            <div class="flex flex-col gap-3 pb-3">
-                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
-                                    style='background-image: url("https://cdn.usegalileo.ai/sdxl10/3775180b-f038-4a4b-bd24-6636bcc99b64.png");'>
-                                </div>
-                                <div>
-                                    <p class="text-[#1b130d] text-base font-medium leading-normal dark:text-white">Tacos Al Pastor</p>
-                                    <p class="text-[#9a6e4c] text-sm font-normal leading-normal">Pork tacos with pineapple</p>
-                                </div>
-                            </div>
-                            <div class="flex flex-col gap-3 pb-3">
-                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
-                                    style='background-image: url("https://cdn.usegalileo.ai/sdxl10/b19e9214-75ad-488c-995b-daff95623280.png");'>
-                                </div>
-                                <div>
+                                <div class="px-2">
                                     <p class="text-[#1b130d] text-base font-medium leading-normal dark:text-white">Unagi Nigiri</p>
                                     <p class="text-[#9a6e4c] text-sm font-normal leading-normal">Grilled eel on rice</p>
                                 </div>
                             </div>
                             <div class="flex flex-col gap-3 pb-3">
-                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl"
+                                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl h-40 sm:h-48"
                                     style='background-image: url("https://cdn.usegalileo.ai/sdxl10/18ada4c9-6311-4efc-9442-e49acb6b9758.png");'>
                                 </div>
-                                <div>
+                                <div class="px-2">
                                     <p class="text-[#1b130d] text-base font-medium leading-normal dark:text-white">Kung Pao Chicken</p>
                                     <p class="text-[#9a6e4c] text-sm font-normal leading-normal">Stir-fried chicken with peanuts</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Ramen Night section with mobile optimization -->
                     <div class="@container">
-                        <div class="flex flex-col gap-6 px-4 py-10 @[480px]:gap-8 @[864px]:flex-row">
-                            <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl @[480px]:h-auto @[480px]:min-w-[400px] @[864px]:w-full"
+                        <div class="flex flex-col gap-4 sm:gap-6 px-2 sm:px-4 py-6 sm:py-8 md:py-10 lg:flex-row">
+                            <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl min-h-[200px] sm:min-h-[300px] lg:min-h-[400px] lg:min-w-[400px] lg:w-full"
                                 style='background-image: url("https://cdn.usegalileo.ai/sdxl10/04b389e5-6658-4987-bbc6-e821ac46b687.png");'>
                             </div>
-                            <div
-                                class="flex flex-col gap-6 @[480px]:min-w-[400px] @[480px]:gap-8 @[864px]:justify-center">
-                                <div class="flex flex-col gap-2 text-left">
-                                    <h1
-                                        class="text-[#1b130d] text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] dark:text-white">
+                            <div class="flex flex-col gap-4 sm:gap-6 lg:min-w-[400px] lg:justify-center">
+                                <div class="flex flex-col gap-2 text-left px-2">
+                                    <h1 class="text-[#1b130d] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em] dark:text-white">
                                         Ramen Night
                                     </h1>
-                                    <h2
-                                        class="text-[#1b130d] text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal dark:text-white">
+                                    <h2 class="text-[#1b130d] text-sm sm:text-base font-normal leading-normal dark:text-white">
                                         It's time to make your own authentic ramen. We'll provide you with the
                                         ingredients and instructions to make your very own ramen at home.
                                     </h2>
                                 </div>
-                                <button
-                                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#ee7f2b] text-[#1b130d] text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]">
-                                    <span class="truncate">Add to cart</span>
-                                </button>
+                                <div class="px-2">
+                                    <button class="flex w-full sm:w-auto min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 sm:h-14 px-4 sm:px-6 bg-[#ee7f2b] text-[#1b130d] text-sm sm:text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#d66d1a] transition-colors">
+                                        <span class="truncate">Add to cart</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -214,7 +236,50 @@
             </div>
         </div>
     </div>
-    <script src="./secret.js"></script>
 </body>
 
-</html>
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const hamburger = document.getElementById('hamburger');
+            const close = document.getElementById('close');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                hamburger.classList.add('hidden');
+                close.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+                hamburger.classList.remove('hidden');
+                close.classList.add('hidden');
+            }
+        }
+
+        function toggleMobileSearch() {
+            const search = document.getElementById('mobile-search');
+            search.classList.toggle('hidden');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobile-menu');
+            const menuButton = event.target.closest('button[onclick="toggleMobileMenu()"]');
+            
+            if (!menu.contains(event.target) && !menuButton && !menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+                document.getElementById('hamburger').classList.remove('hidden');
+                document.getElementById('close').classList.add('hidden');
+            }
+        });
+
+        // Close mobile search when clicking outside
+        document.addEventListener('click', function(event) {
+            const search = document.getElementById('mobile-search');
+            const searchButton = event.target.closest('button[onclick="toggleMobileSearch()"]');
+            
+            if (!search.contains(event.target) && !searchButton && !search.classList.contains('hidden')) {
+                search.classList.add('hidden');
+            }
+        });
+    </script>
+    <script src="./secret.js"></script>
