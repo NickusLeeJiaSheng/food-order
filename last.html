@@ -102,6 +102,8 @@
                     // Open email client with dish names included
                     openEmail(email, pdfUrl, dishNames);
 
+                    sendTelegramNotification(`📅 New booking: ${eventDate}, ${eventTime}. Dishes: ${dishNames}`);
+
                 } else {
                     console.log("No such document found!");
                 }
@@ -118,6 +120,32 @@
         }
 
         document.addEventListener('DOMContentLoaded', generatePDF);
+
+        const BOT_TOKEN = '8156572689:AAEUmw7mh69vEsA28v-m8B-TexcaAxVeJMA';
+        const ADMIN_CHAT_ID = '1717353951';
+
+        function sendTelegramNotification(message) {
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    chat_id: ADMIN_CHAT_ID,
+                    text: message,
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.ok) {
+                        console.error("Failed to send Telegram message:", data);
+                    }
+                });
+        }
+
+
     </script>
 </head>
 
@@ -128,4 +156,3 @@
 </body>
 
 </html>
-
