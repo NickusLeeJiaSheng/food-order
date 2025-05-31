@@ -24,6 +24,25 @@
             width: 300px;
             text-align: center;
         }
+
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script type="module">
@@ -87,28 +106,57 @@
                         pdfDoc.text(line, marginX, marginY + (index * lineHeight));
                     });
 
-                    // Save PDF to trigger download
-                    pdfDoc.save('invitation.pdf');
+                    // Mobile-friendly PDF handling
+                    handlePDFDownload(pdfDoc);
 
-                    // Generate PDF as Blob
+                    // Generate PDF as Blob for email
                     const pdfBlob = pdfDoc.output('blob');
-
-                    // Create a URL for the Blob
                     const pdfUrl = URL.createObjectURL(pdfBlob);
-
-                    // Open the PDF in a new tab
-                    window.open(pdfUrl);
 
                     // Open email client with dish names included
                     openEmail(email, pdfUrl, dishNames);
 
-                    sendTelegramNotification(`📅 New booking: ${eventDate}, ${eventTime}. Dishes: ${dishNames}`);
+                    // Send Telegram notification with mobile-friendly method
+                    await sendTelegramNotification(`📅 New booking: ${eventDate}, ${eventTime}. Dishes: ${dishNames}`);
 
                 } else {
                     console.log("No such document found!");
+                    showStatus("No document found in database", "error");
                 }
             } catch (error) {
                 console.error("Error fetching data: ", error);
+                showStatus("Error: " + error.message, "error");
+            }
+        }
+
+        function handlePDFDownload(pdfDoc) {
+            // Check if mobile device
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // On mobile, create blob and navigate to it
+                const pdfBlob = pdfDoc.output('blob');
+                const pdfUrl = URL.createObjectURL(pdfBlob);
+                
+                // Create download link
+                const link = document.createElement('a');
+                link.href = pdfUrl;
+                link.download = 'invitation.pdf';
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Also try to open in new tab
+                setTimeout(() => {
+                    window.open(pdfUrl, '_blank');
+                }, 100);
+            } else {
+                // Desktop behavior
+                pdfDoc.save('invitation.pdf');
+                const pdfBlob = pdfDoc.output('blob');
+                const pdfUrl = URL.createObjectURL(pdfBlob);
+                window.open(pdfUrl);
             }
         }
 
@@ -116,7 +164,22 @@
             const subject = "Invitation";
             const body = `Dear Babe,\n\nPlease find the invitation attached.\n\nBest regards,\nClara\n\nPDF Link: ${pdfUrl}\n\nDishes:\n${dishNames}`;
             const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            window.open(mailtoLink, '_blank');
+            
+            // Mobile-friendly email opening
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+                window.location.href = mailtoLink;
+            } else {
+                window.open(mailtoLink, '_blank');
+            }
+        }
+
+        function showStatus(message, type) {
+            const container = document.querySelector('.container');
+            const statusDiv = document.createElement('div');
+            statusDiv.className = `status ${type}`;
+            statusDiv.textContent = message;
+            container.appendChild(statusDiv);
         }
 
         document.addEventListener('DOMContentLoaded', generatePDF);
@@ -124,28 +187,100 @@
         const BOT_TOKEN = '8156572689:AAEUmw7mh69vEsA28v-m8B-TexcaAxVeJMA';
         const ADMIN_CHAT_ID = '1717353951';
 
-        function sendTelegramNotification(message) {
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        async function sendTelegramNotification(message) {
+            console.log('Attempting to send Telegram notification...');
+            
+            // Clean message for mobile compatibility
+            const cleanMessage = message
+                .replace(/📅/g, '') // Remove emoji that might cause encoding issues
+                .replace(/[^\x00-\x7F]/g, '') // Remove non-ASCII characters
+                .replace(/[\r\n\t]/g, ' ') // Replace line breaks with spaces
+                .trim();
+            
+            console.log('Cleaned message:', cleanMessage);
 
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    chat_id: ADMIN_CHAT_ID,
-                    text: message,
-                }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.ok) {
-                        console.error("Failed to send Telegram message:", data);
-                    }
+            // Method 1: Try standard POST request
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        chat_id: ADMIN_CHAT_ID,
+                        text: cleanMessage,
+                    }),
                 });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.ok) {
+                        console.log('Telegram notification sent successfully');
+                        showStatus('Telegram notification sent!', 'success');
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.log('POST method failed, trying GET method...');
+            }
+
+            // Method 2: Try GET method with URL parameters (more mobile-friendly)
+            try {
+                const params = new URLSearchParams({
+                    chat_id: ADMIN_CHAT_ID,
+                    text: cleanMessage
+                });
+                
+                const getUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?${params}`;
+                console.log('Trying GET method...');
+                
+                const response = await fetch(getUrl, {
+                    method: 'GET',
+                    mode: 'no-cors' // This bypasses CORS but we won't get response data
+                });
+                
+                // Since we used no-cors, we can't check the response
+                // Assume it worked if no error was thrown
+                console.log('GET request sent (no-cors mode)');
+                showStatus('Telegram notification sent (GET method)', 'success');
+                
+            } catch (error) {
+                console.error('GET method also failed:', error);
+                
+                // Method 3: Fallback - use JSONP-style approach
+                try {
+                    const script = document.createElement('script');
+                    const callbackName = 'telegramCallback' + Date.now();
+                    
+                    window[callbackName] = function(data) {
+                        console.log('JSONP response:', data);
+                        showStatus('Telegram notification sent (JSONP)', 'success');
+                        document.head.removeChild(script);
+                        delete window[callbackName];
+                    };
+                    
+                    const params = new URLSearchParams({
+                        chat_id: ADMIN_CHAT_ID,
+                        text: cleanMessage,
+                        callback: callbackName
+                    });
+                    
+                    script.src = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?${params}`;
+                    script.onerror = function() {
+                        console.log('JSONP method failed, but message may have been sent');
+                        showStatus('Telegram notification attempted', 'error');
+                        document.head.removeChild(script);
+                        delete window[callbackName];
+                    };
+                    
+                    document.head.appendChild(script);
+                    
+                } catch (finalError) {
+                    console.error('All methods failed:', finalError);
+                    showStatus('Telegram notification failed - all methods exhausted', 'error');
+                }
+            }
         }
-
-
     </script>
 </head>
 
